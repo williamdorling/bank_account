@@ -29,7 +29,6 @@ public class BankAccount {
     }
 
     public void withdraw(double withdrawal){
-        double currentBalance = this.balance;
         if (this.balance - withdrawal < overdraft*-1){
             this.balance = overdraft * -1;
             System.out.println("Overdraft limit reached");
