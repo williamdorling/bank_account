@@ -28,7 +28,7 @@ public class BankAccount {
     }
 
     public void interest(double interestRatePercentage){
-        this.balance *= interestRatePercentage;
+        this.balance *= (1 + interestRatePercentage/100);
     }
 
 //    getters and setters

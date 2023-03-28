@@ -88,4 +88,28 @@ public class BankAccountTest {
         double expected = 37.89;
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    public void canDeposit(){
+        bankAccount.deposit(100.10);
+        double actual = bankAccount.getBalance();
+        double expected = 100.10;
+        assertThat(actual).isEqualTo(expected);
+    }
+    @Test
+    public void canWithdraw(){
+        bankAccount.withdrawal(20.57);
+        double actual = bankAccount.getBalance();
+        double expected = -20.57;
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void canAddInterest(){
+        bankAccount.deposit(100);
+        bankAccount.interest(0.5);
+        double actual = bankAccount.getBalance();
+        double expected = 100*1.005;
+        assertThat(actual).isEqualTo(expected);
+    }
 }
