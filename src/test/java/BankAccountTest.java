@@ -11,7 +11,7 @@ public class BankAccountTest {
 
     @BeforeEach
     public void setUP(){
-        bankAccount = new BankAccount("william", "dorling", LocalDate.of(1998,5,2), 314159);
+        bankAccount = new BankAccount("savings","william", "dorling", LocalDate.of(1998,5,2), 314159);
     }
 
     @Test
@@ -105,9 +105,9 @@ public class BankAccountTest {
     }
 
     @Test
-    public void canAddInterest(){
+    public void canPayInterest(){
         bankAccount.deposit(100);
-        bankAccount.interest(0.5);
+        bankAccount.payInterest();
         double actual = bankAccount.getBalance();
         double expected = 100*1.005;
         assertThat(actual).isEqualTo(expected);

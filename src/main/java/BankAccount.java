@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 
 public class BankAccount {
+    private String accountType;
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
@@ -9,7 +10,8 @@ public class BankAccount {
 
 //    constructor
 
-    public BankAccount(String inputFirstName, String inputLastName, LocalDate inputDateOfBirth, int inputAccountNumber){
+    public BankAccount(String inputAccountType,  String inputFirstName, String inputLastName, LocalDate inputDateOfBirth, int inputAccountNumber){
+        this.accountType = inputAccountType;
         this.firstName = inputFirstName;
         this.lastName = inputLastName;
         this.dateOfBirth = inputDateOfBirth;
@@ -27,8 +29,15 @@ public class BankAccount {
         this.balance -= withdrawal;
     }
 
-    public void interest(double interestRatePercentage){
-        this.balance *= (1 + interestRatePercentage/100);
+    public void payInterest(){
+        double currentAccountInterestRate = 0.2;
+        double savingsAccountInterestRate = 0.5;
+        if (this.accountType.equals("current")){
+            this.balance *= (1 + currentAccountInterestRate/100);
+        } if (this.accountType.equals("savings")){
+            this.balance *= (1 + savingsAccountInterestRate/100);
+        }
+
     }
 
 //    getters and setters
