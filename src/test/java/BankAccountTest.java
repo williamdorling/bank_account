@@ -11,9 +11,17 @@ public class BankAccountTest {
 
     @BeforeEach
     public void setUP(){
-        bankAccount = new BankAccount("savings","william", "dorling", LocalDate.of(1998,5,2), 314159);
+        bankAccount = new BankAccount("savings","william", "dorling",
+                LocalDate.of(1998,5,2), 314159, 1000);
     }
 
+
+    @Test
+    public void canCallAccountType(){
+        String actual = bankAccount.getAccountType();
+        String expected = "savings";
+        assertThat(actual).isEqualTo(expected);
+    }
     @Test
     public void canCallFirstName(){
         String actual = bankAccount.getFirstName();
@@ -49,6 +57,20 @@ public class BankAccountTest {
         assertThat(actual).isEqualTo(expected);
     }
 
+    @Test
+    public void canCallOverdraft(){
+        double actual = bankAccount.getOverdraft();
+        double expected = 1000;
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void canChangeAccountType(){
+        bankAccount.setAccountType("current");
+        String actual = bankAccount.getAccountType();
+        String expected = "current";
+        assertThat(actual).isEqualTo(expected);
+    }
     @Test
     public void canChangeFirstName(){
         bankAccount.setFirstName("Igor");
@@ -90,6 +112,14 @@ public class BankAccountTest {
     }
 
     @Test
+    public void canChangeOverdraft(){
+        bankAccount.setOverdraft(1500);
+        double actual = bankAccount.getOverdraft();
+        double expected = 1500;
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
     public void canDeposit(){
         bankAccount.deposit(100.10);
         double actual = bankAccount.getBalance();
@@ -98,7 +128,7 @@ public class BankAccountTest {
     }
     @Test
     public void canWithdraw(){
-        bankAccount.withdrawal(20.57);
+        bankAccount.withdraw(20.57);
         double actual = bankAccount.getBalance();
         double expected = -20.57;
         assertThat(actual).isEqualTo(expected);
@@ -111,5 +141,13 @@ public class BankAccountTest {
         double actual = bankAccount.getBalance();
         double expected = 100*1.005;
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void canWithdrawUpToOverdraft(){
+        bankAccount.setBalance(100);
+        bankAccount.withdraw(2000);
+        double actual = bankAccount.getBalance();
+        double expected = -1000;
     }
 }

@@ -7,40 +7,57 @@ public class BankAccount {
     private LocalDate dateOfBirth;
     private int accountNumber;
     private double balance;
+    private double overdraft;
 
 //    constructor
 
-    public BankAccount(String inputAccountType,  String inputFirstName, String inputLastName, LocalDate inputDateOfBirth, int inputAccountNumber){
+    public BankAccount(String inputAccountType,  String inputFirstName, String inputLastName,
+                       LocalDate inputDateOfBirth, int inputAccountNumber, double inputOverdraft){
         this.accountType = inputAccountType;
         this.firstName = inputFirstName;
         this.lastName = inputLastName;
         this.dateOfBirth = inputDateOfBirth;
         this.accountNumber = inputAccountNumber;
         this.balance = 0;
+        this.overdraft = inputOverdraft;
     }
 
-//    methods
+//    METHODS
 
     public void deposit(double deposit){
         this.balance += deposit;
     }
 
-    public void withdrawal(double withdrawal){
-        this.balance -= withdrawal;
+    public void withdraw(double withdrawal){
+        double currentBalance = this.balance;
+        if (this.balance - withdrawal < overdraft*-1){
+            this.balance = overdraft * -1;
+            System.out.println("Overdraft limit reached");
+        }else{
+            this.balance -= withdrawal;
+        }
+
     }
 
     public void payInterest(){
         double currentAccountInterestRate = 0.2;
         double savingsAccountInterestRate = 0.5;
+        double otherAccountInterestRate = 0.3;
         if (this.accountType.equals("current")){
             this.balance *= (1 + currentAccountInterestRate/100);
         } if (this.accountType.equals("savings")){
             this.balance *= (1 + savingsAccountInterestRate/100);
+        } else{
+            this.balance *= (1 + otherAccountInterestRate/100);
         }
 
     }
 
 //    getters and setters
+    public String getAccountType(){
+        return this.accountType;
+    }
+
     public String getFirstName(){
         return this.firstName;
     }
@@ -56,7 +73,13 @@ public class BankAccount {
     public double getBalance(){
         return this.balance;
     }
+    public double getOverdraft(){
+        return this.overdraft;
+    }
 
+    public void setAccountType(String newAccountType){
+        this.accountType = newAccountType;
+    }
     public void setFirstName(String newFirstName){
         this.firstName = newFirstName;
     }
@@ -72,5 +95,11 @@ public class BankAccount {
     public void setBalance(double newBalance){
         this.balance = newBalance;
     }
+    public void setOverdraft(double newOverdraft){
+        this.overdraft = newOverdraft;
+    }
+
+
+
 
 }
