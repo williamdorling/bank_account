@@ -22,6 +22,7 @@ public class BankAccountTest {
         String expected = "savings";
         assertThat(actual).isEqualTo(expected);
     }
+
     @Test
     public void canCallFirstName(){
         String actual = bankAccount.getFirstName();
@@ -149,5 +150,6 @@ public class BankAccountTest {
         bankAccount.withdraw(2000);
         double actual = bankAccount.getBalance();
         double expected = -1000;
+        assertThat(actual).isEqualTo(expected);
     }
 }
